@@ -30,9 +30,9 @@ class HomeController extends Controller
 //            Mail::to($email)->send(new RegisterMail($name = "Abdallah"));
 //        }
 
-        User::chunk(5, function ($data) {
-            dispatch(new SendMails($data));
-        });
+//        User::chunk(5, function ($data) {
+//            dispatch(new SendMails($data));
+//        });
         return true;
     }
 }

@@ -16,7 +16,7 @@ class RegisterMail extends Mailable
      *
      * @return void
      */
-    public $name;
+    protected $name;
     public function __construct($name)
     {
         $this->name = $name;
@@ -30,6 +30,7 @@ class RegisterMail extends Mailable
     public function build()
     {
         return $this->subject('Welcome to website')
-            ->view('mails.register');
+            ->view('mails.register')
+            ->with('name', $this->name);
     }
 }

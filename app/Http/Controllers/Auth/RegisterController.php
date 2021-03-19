@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendMails;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -89,10 +90,14 @@ class RegisterController extends Controller
         $this->guard()->login($user);
 
 //        dd($request->email);
+        $data = [
+            $request->name,
+            $request->email
+        ];
 
-        //sending email registeration
+        //sending email registration
 //        Mail::to($request->email)->send(new RegisterMail($request->name));
-//        dispatch(new SendMails($request->email));
+        dispatch(new SendMails($data[]));
 
         if ($response = $this->registered($request, $user)) {
             return $response;

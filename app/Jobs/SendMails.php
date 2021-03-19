@@ -20,8 +20,8 @@ class SendMails implements ShouldQueue
      *
      * @return void
      */
-    private $data;
-    public function __construct($data)
+    protected $data = [];
+    public function __construct($data=[])
     {
         $this->data = $data;
     }
@@ -33,9 +33,6 @@ class SendMails implements ShouldQueue
      */
     public function handle()
     {
-        foreach ($this->data as $data)
-        {
-            Mail::to($data->email)->send(new RegisterMail($data->email));
-        }
+        Mail::to($this->data->email)->send(new RegisterMail($this->data->name));
     }
 }
