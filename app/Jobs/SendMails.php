@@ -4,7 +4,6 @@ namespace App\Jobs;
 
 use App\Mail\RegisterMail;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -20,8 +19,8 @@ class SendMails implements ShouldQueue
      *
      * @return void
      */
-    protected $data = [];
-    public function __construct($data=[])
+    private $data;
+    public function __construct($data)
     {
         $this->data = $data;
     }
@@ -33,6 +32,6 @@ class SendMails implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->data->email)->send(new RegisterMail($this->data->name));
+        Mail::to($this->data['email'])->send(new RegisterMail($this->data['name']));
     }
 }

@@ -55,7 +55,5 @@ Route::group(
             Route::post('update', [ProductController::class, 'update'])->name('products.update');
             Route::post('delete/{id}', [ProductController::class, 'destroy'])->name('products.delete');
         });
-
-        Route::get('send-mails', [HomeController::class, 'sendMails']);
     });
 });

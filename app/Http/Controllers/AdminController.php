@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Interfaces\AdminInterface;
+use App\Http\Requests\AdminRequest;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -28,7 +29,7 @@ class AdminController extends Controller
         return $this->adminInterface->addAdmin();
     }
 
-    public function store(Request $request)
+    public function store(AdminRequest $request)
     {
         return $this->adminInterface->storeAdmin($request);
     }
@@ -38,7 +39,7 @@ class AdminController extends Controller
         return $this->adminInterface->editAdmin($id);
     }
 
-    public function update(Request $request)
+    public function update(AdminRequest $request)
     {
         return $this->adminInterface->updateAdmin($request);
     }

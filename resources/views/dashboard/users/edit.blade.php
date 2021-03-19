@@ -42,40 +42,14 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="mr-2">
-                                <input type="checkbox" name="is_activated" @if($user->is_activated == 1) checked @endif value="1">
-                                @lang('site.activate')</label>
+                            <label>@lang('site.phone')</label>
+                            <input type="text" name="phone" class="form-control" value="{{ $user->phone }}">
                         </div>
 
                         <div class="form-group">
-                            <label>@lang('site.permissions')</label>
-                            <div class="nav-tabs-custom">
-
-                                @php
-                                    $models = ['users', 'products'];
-                                    $maps = ['create', 'read', 'update', 'delete'];
-                                @endphp
-
-                                <ul class="nav nav-tabs">
-                                    @foreach ($models as $index=>$model)
-                                        <li class="{{ $index == 0 ? 'active' : '' }}"><a href="#{{ $model }}" data-toggle="tab">@lang('site.' . $model)</a></li>
-                                    @endforeach
-                                </ul>
-
-                                <div class="tab-content">
-                                    @foreach ($models as $index => $model)
-
-                                        <div class="tab-pane {{ $index == 0 ? 'active' : '' }}" id="{{ $model }}">
-                                            @foreach ($maps as $map)
-                                                <label class="mr-2"><input type="checkbox" name="permissions[]" {{ $user->hasPermission($model . '-' . $map) ? 'checked' : '' }} value="{{ $model . '-' . $map }}"> @lang('site.' . $map)</label>
-                                            @endforeach
-                                        </div>
-
-                                    @endforeach
-                                </div><!-- end of tab content -->
-
-                            </div><!-- end of nav tabs -->
-
+                            <label class="mr-2">
+                                <input type="checkbox" name="is_activated" @if($user->is_activated == 1) checked @endif value="1">
+                                @lang('site.activate')</label>
                         </div>
 
                         <div class="form-group">

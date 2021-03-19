@@ -21,18 +21,4 @@ class HomeController extends Controller
     {
         return $this->homeInterface->index();
     }
-
-    public function sendMails()
-    {
-//        $emails = User::select('email')->get();
-//        foreach ($emails as $email)
-//        {
-//            Mail::to($email)->send(new RegisterMail($name = "Abdallah"));
-//        }
-
-//        User::chunk(5, function ($data) {
-//            dispatch(new SendMails($data));
-//        });
-        return true;
-    }
 }

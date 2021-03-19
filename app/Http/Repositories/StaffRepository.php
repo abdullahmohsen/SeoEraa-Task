@@ -32,21 +32,14 @@ class StaffRepository implements StaffInterface
 
     public function storeUser($request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|unique:users',
-            'password' => 'required|confirmed',
-            'permissions' => 'required|min:1'
-        ]);
-
         $user = $this->userModel::create([
             'name' => $request->name,
             'email' => $request->email,
+            'phone' => $request->phone,
             'is_activated' => $request->has("is_activated") ? 1 : 0,
             'password' => Hash::make($request->password),
         ]);
-        $user->attachRole('admin');
-        $user->syncPermissions($request->permissions);
+        $user->attachRole('user');
 
         session()->flash('success', __('site.added_successfully'));
         return redirect()->route('users.index');
@@ -60,20 +53,15 @@ class StaffRepository implements StaffInterface
 
     public function updateUser($request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$request->id,
-            'permissions' => 'required|min:1'
-        ]);
         $user = $this->userModel->findOrFail($request->id);
 
         if (!$request->has('is_activated'))
             $request->request->add(['is_activated' => 0]);
-        $request->request->add(['is_activated' => 1]);
+        else
+            $request->request->add(['is_activated' => 1]);
 
-        $request_data = $request->except(['permissions']);
-        $user->update($request_data);
-        $user->syncPermissions($request->permissions);
+
+        $user->update($request->all());
 
         session()->flash('success', __('site.updated_successfully'));
         return redirect()->route('users.index');

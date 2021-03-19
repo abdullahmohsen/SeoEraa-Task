@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Interfaces\StaffInterface;
+use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -28,7 +29,7 @@ class UserController extends Controller
         return $this->userInterface->addUser();
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         return $this->userInterface->storeUser($request);
     }
@@ -38,7 +39,7 @@ class UserController extends Controller
         return $this->userInterface->editUser($id);
     }
 
-    public function update(Request $request)
+    public function update(UserRequest $request)
     {
         return $this->userInterface->updateUser($request);
     }

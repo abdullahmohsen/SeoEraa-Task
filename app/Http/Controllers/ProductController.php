@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Interfaces\ProductInterface;
+use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -28,7 +29,7 @@ class ProductController extends Controller
         return $this->productInterface->addProduct();
     }
 
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         return $this->productInterface->storeProduct($request);
     }
@@ -38,7 +39,7 @@ class ProductController extends Controller
         return $this->productInterface->editProduct($id);
     }
 
-    public function update(Request $request)
+    public function update(ProductRequest $request)
     {
         return $this->productInterface->updateProduct($request);
     }

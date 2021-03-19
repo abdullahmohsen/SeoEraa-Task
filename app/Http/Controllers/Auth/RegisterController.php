@@ -89,15 +89,14 @@ class RegisterController extends Controller
 
         $this->guard()->login($user);
 
-//        dd($request->email);
         $data = [
-            $request->name,
-            $request->email
+            'name' => $request->name,
+            'email' => $request->email
         ];
 
         //sending email registration
 //        Mail::to($request->email)->send(new RegisterMail($request->name));
-        dispatch(new SendMails($data[]));
+        dispatch(new SendMails($data));
 
         if ($response = $this->registered($request, $user)) {
             return $response;

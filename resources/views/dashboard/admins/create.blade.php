@@ -6,11 +6,11 @@
 
         <section class="content-header">
 
-            <h1>@lang('site.users')</h1>
+            <h1>@lang('site.admins')</h1>
 
             <ol class="breadcrumb">
                 <li><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
-                <li><a href="{{ route('users.index') }}"> @lang('site.users')</a></li>
+                <li><a href="{{ route('admins.index') }}"> @lang('site.admins')</a></li>
                 <li class="active">@lang('site.add')</li>
             </ol>
         </section>
@@ -27,7 +27,7 @@
 
                     @include('partials._errors')
 
-                    <form action="{{ route('users.store') }}" method="post">
+                    <form action="{{ route('admins.store') }}" method="post">
                         @csrf
 
                         <div class="form-group">
@@ -51,19 +51,50 @@
                         </div>
 
                         <div class="form-group">
-                            <label>@lang('site.phone')</label>
-                            <input type="text" name="phone" class="form-control" value="{{ old('email') }}">
-                        </div>
-
-                        <div class="form-group">
                             <label class="mr-2">
                                 <input type="checkbox" name="is_activated" checked value="1">
                                 @lang('site.activate')</label>
                         </div>
 
+
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</button>
-                        </div>
+                            <label>@lang('site.permissions')</label>
+                            <div class="nav-tabs-custom">
+
+                            @php
+                                $models = ['users', 'products'];
+                                $maps = ['create', 'read', 'update', 'delete'];
+                            @endphp
+
+                            <ul class="nav nav-tabs">
+                                @foreach ($models as $index=>$model)
+                                    <li class="{{ $index == 0 ? 'active' : '' }}"><a href="#{{ $model }}" data-toggle="tab">@lang('site.' . $model)</a></li>
+                                @endforeach
+                            </ul>
+
+                            <div class="tab-content">
+
+                                @foreach ($models as $index => $model)
+
+                                    <div class="tab-pane {{ $index == 0 ? 'active' : '' }}" id="{{ $model }}">
+
+                                        @foreach ($maps as $map)
+                                            <label class="mr-2"><input type="checkbox" name="permissions[]" value="{{ $model . '-' . $map }}"> @lang('site.' . $map)</label>
+                                        @endforeach
+
+                                    </div>
+
+                                @endforeach
+
+                            </div><!-- end of tab content -->
+
+                        </div><!-- end of nav tabs -->
+
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</button>
+                    </div>
 
                     </form><!-- end of form -->
 

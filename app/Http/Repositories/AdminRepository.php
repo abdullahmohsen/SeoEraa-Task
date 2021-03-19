@@ -18,36 +18,29 @@ class AdminRepository implements AdminInterface
 
     public function allAdmin($request)
     {
-        $users = $this->userModel::whereRoleIs('admin')->where(function ($query) use ($request){
+        $admins = $this->userModel::whereRoleIs('admin')->where(function ($query) use ($request){
             $query->when($request->search, function ($q) use ($request){
                 $q->where('name', 'like', '%'. $request->search . '%');
             });
         })->latest()->get();
-        return view('dashboard.users.index', compact('users'));
+        return view('dashboard.admins.index', compact('admins'));
     }
 
     public function addAdmin()
     {
-        return view('dashboard.users.create');
+        return view('dashboard.admins.create');
     }
 
     public function storeAdmin($request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|unique:users',
-            'password' => 'required|confirmed',
-            'permissions' => 'required|min:1'
-        ]);
-
-        $user = $this->userModel::create([
+        $admin = $this->userModel::create([
             'name' => $request->name,
             'email' => $request->email,
             'is_activated' => $request->has("is_activated") ? 1 : 0,
             'password' => Hash::make($request->password),
         ]);
-        $user->attachRole('admin');
-        $user->syncPermissions($request->permissions);
+        $admin->attachRole('admin');
+        $admin->syncPermissions($request->permissions);
 
         session()->flash('success', __('site.added_successfully'));
         return redirect()->route('admins.index');
@@ -55,26 +48,22 @@ class AdminRepository implements AdminInterface
 
     public function editAdmin($id)
     {
-        $user = $this->userModel->findOrFail($id);
-        return view('dashboard.users.edit', compact('user'));
+        $admin = $this->userModel->findOrFail($id);
+        return view('dashboard.admins.edit', compact('admin'));
     }
 
     public function updateAdmin($request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$request->id,
-            'permissions' => 'required|min:1'
-        ]);
-        $user = $this->userModel->findOrFail($request->id);
+        $admin = $this->userModel->findOrFail($request->id);
 
         if (!$request->has('is_activated'))
             $request->request->add(['is_activated' => 0]);
-        $request->request->add(['is_activated' => 1]);
+        else
+            $request->request->add(['is_activated' => 1]);
 
         $request_data = $request->except(['permissions']);
-        $user->update($request_data);
-        $user->syncPermissions($request->permissions);
+        $admin->update($request_data);
+        $admin->syncPermissions($request->permissions);
 
         session()->flash('success', __('site.updated_successfully'));
         return redirect()->route('admins.index');
@@ -82,8 +71,8 @@ class AdminRepository implements AdminInterface
 
     public function deleteAdmin($id)
     {
-        $user = $this->userModel->findOrFail($id);
-        $user->delete();
+        $admin = $this->userModel->findOrFail($id);
+        $admin->delete();
         session()->flash('success', __('site.deleted_successfully'));
         return redirect()->route('admins.index');
     }

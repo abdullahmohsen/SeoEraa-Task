@@ -32,15 +32,7 @@ class ProductRepository implements ProductInterface
 
     public function storeProduct($request)
     {
-        $rules = [
-            'price' => 'required',
-        ];
-        foreach (config('translatable.locales') as $locale) {
-            $rules += [$locale . '.name' => 'required'];
-            $rules += [$locale . '.description' => 'required'];
-        } //end of  for each
 
-        $request->validate($rules);
         $request_data = $request->all();
 
         if ($request->image) {
@@ -65,15 +57,6 @@ class ProductRepository implements ProductInterface
 
     public function updateProduct($request)
     {
-        $rules = [
-            'price' => 'required',
-        ];
-        foreach (config('translatable.locales') as $locale) {
-            $rules += [$locale . '.name' => 'required'];
-            $rules += [$locale . '.description' => 'required'];
-        } //end of  for each
-
-        $request->validate($rules);
         $request_data = $request->all();
         $product = $this->productModel->findOrFail($request->id);
 
