@@ -16,6 +16,8 @@ class Product extends Model
 
     protected $appends = ['image_path'];
 
+    protected $timestamps = false;
+
     public function getImagePathAttribute()
     {
         return asset('uploads/product_images/'.$this->image);

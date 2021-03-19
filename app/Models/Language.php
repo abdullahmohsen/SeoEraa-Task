@@ -16,6 +16,8 @@ class Language extends Model
         'updated_at',
     ];
 
+    protected $appends = ['image_path'];
+
     public function scopeActive($query)
     {
         return $query->where('active', 1);
