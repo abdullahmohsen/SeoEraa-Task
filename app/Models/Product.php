@@ -16,7 +16,7 @@ class Product extends Model
 
     protected $appends = ['image_path'];
 
-    protected $timestamps = false;
+    public $timestamps = false;
 
     public function getImagePathAttribute()
     {
