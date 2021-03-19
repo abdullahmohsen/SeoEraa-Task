@@ -2,36 +2,40 @@
 
 namespace App\Http\Repositories;
 
-use App\Http\Interfaces\ProductInterface;
-use App\Models\Product;
+use App\Http\Interfaces\LanguageInterface;
+use App\Models\Language;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
 
-class ProductRepository implements ProductInterface
+class LanguageRepository implements LanguageInterface
 {
-    private $productModel;
+    private $languageModel;
 
-    public function __construct(Product $product)
+    public function __construct(Language $language)
     {
-        $this->productModel = $product;
+        $this->languageModel = $language;
     }
 
-    public function allProduct($request)
+    public function allLanguage($request)
     {
-        $products = Product::when($request->search, function ($q) use ($request) {
-            $q->whereTranslationLike('name', '%' . $request->search . '%');
+        $languages = $this->languageModel::when($request->search, function ($q) use ($request) {
+            $q->where('title', '%' . $request->search . '%');
         })->latest()->get();
-        return view('dashboard.products.index', compact('products'));
+        return view('dashboard.languages.index', compact('languages'));
     }
 
-    public function addProduct()
+    public function addLanguage()
     {
-        return view('dashboard.products.create');
+        return view('dashboard.languages.create');
     }
 
-    public function storeProduct($request)
+    public function storeLanguage($request)
     {
+        if (!$request->has('active'))
+            $request->request->add(['active' => 0]);
+        else
+            $request->request->add(['active' => 1]);
 
         $request_data = $request->all();
 
@@ -40,50 +44,53 @@ class ProductRepository implements ProductInterface
                 ->resize(300, null, function ($constraint) {
                     $constraint->aspectRatio();
                 })
-                ->save(public_path('uploads/product_images/' . $request->image->hashName()));
+                ->save(public_path('uploads/language_images/' . $request->image->hashName()));
             $request_data['image'] = $request->image->hashName();
         } //end of if
 
-        $this->productModel::create($request_data);
+        $this->languageModel::create($request_data);
         session()->flash('success', __('site.added_successfully'));
-        return redirect()->route('products.index');
+        return redirect()->route('languages.index');
     }
 
-    public function editProduct($id)
+    public function editLanguage($id)
     {
-        $product = $this->productModel->findOrFail($id);
-        return view('dashboard.products.edit', compact('product'));
+        $language = $this->languageModel->findOrFail($id);
+        return view('dashboard.languages.edit', compact('language'));
     }
 
-    public function updateProduct($request)
+    public function updateLanguage($request)
     {
+        if (!$request->has('active'))
+            $request->request->add(['active' => 0]);
+        else
+            $request->request->add(['active' => 1]);
         $request_data = $request->all();
-        $product = $this->productModel->findOrFail($request->id);
+        $language = $this->languageModel->findOrFail($request->id);
 
         if ($request->image) {
-            if ($product->image != 'default.png')
-                Storage::disk('public_uploads')->delete('/product_images/' . $product->image);
+            Storage::disk('public_uploads')->delete('/language_images/' . $language->image);
             Image::make($request->image)
                 ->resize(300, null, function ($constraint) {
                     $constraint->aspectRatio();
                 })
-                ->save(public_path('uploads/product_images/' . $request->image->hashName()));
+                ->save(public_path('uploads/language_images/' . $request->image->hashName()));
             $request_data['image'] = $request->image->hashName();
         } //end of if
 
-        $product->update($request_data);
+        $language->update($request_data);
         session()->flash('success', __('site.updated_successfully'));
-        return redirect()->route('products.index');
+        return redirect()->route('languages.index');
     }
 
-    public function deleteProduct($id)
+    public function deleteLanguage($id)
     {
-        $product = $this->productModel->findOrFail($id);
-        if ($product->image != 'default.png')
-            Storage::disk('public_uploads')->delete('/product_images/' . $product->image);
+        $language = $this->languageModel->findOrFail($id);
+        if ($language->image)
+            Storage::disk('public_uploads')->delete('/language_images/' . $language->image);
 
-        $product->delete();
+        $language->delete();
         session()->flash('success', __('site.deleted_successfully'));
-        return redirect()->route('products.index');
+        return redirect()->route('languages.index');
     }
 }

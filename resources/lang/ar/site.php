@@ -3,6 +3,7 @@
 return [
     'dashboard' => 'الرئيسيه',
     'logout' => 'تسجيل الخروج',
+    'languages' => 'اللغات',
 
     'add' => 'اضف',
     'create' => 'اضافه',
@@ -30,8 +31,16 @@ return [
     'deleted_successfully' => 'تم حذف البيانات بنجاح',
 
     'no_data_found' => 'لا يوجد اي سجلات',
+    'no_languages_found' => 'لا يوجد اي لغات',
     'no_products_found' => 'لا يوجد اي منتجات',
     'no_records' => 'لا يوجد اي سجلات',
+    'please.choose.the.direction' => 'من فضلك أختر اتجاه الاتجاة',
+    'from.right.to.left' => 'من اليمين الي اليسار',
+    'from.left.to.right' => 'من اليسار الي اليمين',
+    'direction' => 'الاتجاة',
+    'slogan' => 'أختصار اللغة',
+    'title' => 'اسم اللغة',
+    'no_image' => 'لا يوجد صورة',
 
     'clients' => 'العملاء',
     'client_name' => 'اسم العميل',

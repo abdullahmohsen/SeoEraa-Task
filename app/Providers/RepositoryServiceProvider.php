@@ -17,7 +17,8 @@ class RepositoryServiceProvider extends ServiceProvider
             'Staff',
             'Home',
             'Product',
-            'Admin'
+            'Admin',
+            'Language'
         );
 
         foreach ($models as $model) {

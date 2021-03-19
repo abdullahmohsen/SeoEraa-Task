@@ -15,6 +15,10 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i><span>@lang('site.dashboard')</span></a></li>
 
+            @if (auth()->user()->hasRole('super_admin'))
+                <li><a href="{{ route('languages.index') }}"><i class="fa fa-users"></i><span>@lang('site.languages')</span></a></li>
+            @endif
+
             @if (auth()->user()->hasPermission('users-read'))
                 <li><a href="{{ route('admins.index') }}"><i class="fa fa-users"></i><span>@lang('site.admins')</span></a></li>
             @endif

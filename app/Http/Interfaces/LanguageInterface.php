@@ -1,11 +1,11 @@
 <?php
 namespace App\Http\Interfaces;
 
-interface ProductInterface{
-    public function allProduct($request);
-    public function addProduct();
-    public function storeProduct($request);
-    public function editProduct($id);
-    public function updateProduct($request);
-    public function deleteProduct($id);
+interface LanguageInterface{
+    public function allLanguage($request);
+    public function addLanguage();
+    public function storeLanguage($request);
+    public function editLanguage($id);
+    public function updateLanguage($request);
+    public function deleteLanguage($id);
 }

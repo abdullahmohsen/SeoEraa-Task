@@ -19,7 +19,7 @@ class ProductRepository implements ProductInterface
 
     public function allProduct($request)
     {
-        $products = Product::when($request->search, function ($q) use ($request) {
+        $products = $this->productModel::when($request->search, function ($q) use ($request) {
             $q->whereTranslationLike('name', '%' . $request->search . '%');
         })->latest()->get();
         return view('dashboard.products.index', compact('products'));

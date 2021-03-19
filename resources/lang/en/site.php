@@ -3,6 +3,7 @@
 return [
     'dashboard' => 'Dashboard',
     'logout' => 'Logout',
+    'languages' => 'Languages',
 
     'add' => 'Add',
     'create' => 'Create',
@@ -32,6 +33,17 @@ return [
     'no_data_found' => 'No Users Found',
     'no_records' => 'No Records',
     'no_products_found' => 'No Products Found',
+    'no_languages_found' => 'No Languages Found',
+    'please.choose.the.direction' => 'Please Choose the Direction',
+    'from.right.to.left' => 'From Right to Left',
+    'from.left.to.right' => 'From Left to Right',
+    'direction' => 'Direction',
+    'slogan' => 'Slogan',
+    'title' => 'Title',
+    'no_image' => 'No Image',
+
+
+
 
     'clients' => 'Clients',
     'client_name' => 'Client Name',

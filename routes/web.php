@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{HomeController, ProductController, UserController, AdminController};
+use App\Http\Controllers\{HomeController, LanguageController, ProductController, UserController, AdminController};
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -54,6 +54,15 @@ Route::group(
             Route::get('edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
             Route::post('update', [ProductController::class, 'update'])->name('products.update');
             Route::post('delete/{id}', [ProductController::class, 'destroy'])->name('products.delete');
+        });
+
+        Route::prefix('languages')->group(function () {
+            Route::get('index', [LanguageController::class, 'index'])->name('languages.index');
+            Route::get('create', [LanguageController::class, 'create'])->name('languages.create');
+            Route::post('create', [LanguageController::class, 'store'])->name('languages.store');
+            Route::get('edit/{id}', [LanguageController::class, 'edit'])->name('languages.edit');
+            Route::post('update', [LanguageController::class, 'update'])->name('languages.update');
+            Route::post('delete/{id}', [LanguageController::class, 'destroy'])->name('languages.delete');
         });
     });
 });
