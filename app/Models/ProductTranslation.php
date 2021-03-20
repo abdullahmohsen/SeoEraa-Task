@@ -10,5 +10,5 @@ class ProductTranslation extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'description'];
-    protected $timestamps = false;
+    public $timestamps = false;
 }

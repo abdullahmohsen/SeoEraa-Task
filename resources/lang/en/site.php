@@ -111,4 +111,9 @@ return [
         'description' => 'English Description',
     ],
 
+    'es' => [
+        'name' => 'Spanish Name',
+        'description' => 'Spanish Description',
+    ],
+
 ];

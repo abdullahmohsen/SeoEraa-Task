@@ -2,11 +2,11 @@
 
 namespace App\Http\Repositories;
 
-use App\Http\Interfaces\StaffInterface;
+use App\Http\Interfaces\UsersInterface;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class StaffRepository implements StaffInterface
+class UsersRepository implements UsersInterface
 {
     private $userModel;
 

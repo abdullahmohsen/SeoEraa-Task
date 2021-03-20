@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Interfaces\StaffInterface;
+use App\Http\Interfaces\UsersInterface;
 use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 
@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     private $userInterface;
 
-    public function __construct(StaffInterface $userInterface)
+    public function __construct(UsersInterface $userInterface)
     {
         $this->userInterface = $userInterface;
         $this->middleware(['permission:users-read'])->only('index');

@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Interfaces;
 
-interface StaffInterface{
+interface UsersInterface{
     public function allUser($request);
     public function addUser();
     public function storeUser($request);
